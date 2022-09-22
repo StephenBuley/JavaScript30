@@ -18,28 +18,57 @@
     }
 
     // Regular
+    console.log("hello")
 
     // Interpolated
+    console.log('hello there, %s', 'stephen')
 
     // Styled
+    console.log('%c I am amazing', 'font-family: arial')
 
     // warning!
+    console.warn("watch out for this one!")
 
     // Error :|
+    console.error("you messed up")
 
     // Info
+    console.info("crocodiles eat 3 - 4 people per year!")
 
     // Testing
+    console.assert(2 === 1, "that is incorrect math!")
 
     // clearing
+    console.clear()
 
     // Viewing DOM Elements
+    const p = document.querySelector("p")
+    console.dir(p)
 
     // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`)
+      console.log(`This is ${dog.name}`)
+      console.log(`${dog.name} is ${dog.age} years old`)
+      console.log(`${dog.name} is ${dog.age * 7} dog years old!`)
+      console.groupEnd(`${dog.name}`)
+    })
 
     // counting
+    console.count('Stephen')
+    console.count('Stephen')
+    console.count('Stephen')
+    console.count('Stephen')
+    console.count('Stephen')
 
     // timing
+    console.time('fetch user')
+    fetch('https://api.github.com/users/stephenbuley')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetch user')
+        console.log(data)
+      })
 
   </script>
 </body>
