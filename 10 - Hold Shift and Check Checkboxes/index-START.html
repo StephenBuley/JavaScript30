@@ -96,6 +96,21 @@
   </div>
 
 <script>
+  const boxes = [...document.querySelectorAll("input")].map((item, i) => {return {input: item, id: i}})
+  let lastClicked = null
+  boxes.forEach(box => {
+    box.input.addEventListener("click", (e) => {
+      if (lastClicked !== null && e.shiftKey) {
+        // check all the boxes between lastClicked and this box
+        const first = Math.min(lastClicked, box.id)
+        const second = Math.max(lastClicked, box.id)
+        for (let i = first; i <= second; i++) {
+          boxes[i].input.checked = box.input.checked
+        }
+      }
+      lastClicked = box.id
+    })
+  })
 </script>
 </body>
 </html>
