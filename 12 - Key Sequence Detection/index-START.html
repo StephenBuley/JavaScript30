@@ -7,6 +7,18 @@
 </head>
 <body>
 <script>
+  const pressed = []
+  const secretPasscode = "steverocks"
+
+  window.addEventListener("keyup", (e) => {
+    pressed.push(e.key)
+    if (pressed.length > secretPasscode.length) {
+      pressed.splice(0, 1)
+    }
+    if (pressed.join("") === secretPasscode) {
+      cornify_add()
+    }
+  })
 </script>
 </body>
 </html>
