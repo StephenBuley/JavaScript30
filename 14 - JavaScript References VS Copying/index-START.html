@@ -1,56 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>JS Reference VS Copy</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Reference VS Copy</title>
+  </head>
+  <body>
+    <script>
+      // start with strings, numbers and booleans
+      // let age = 100
+      // let age2 = age
+      // console.log(age, age2)
+      // age = 200
+      // console.log(age, age2)
+      // let name = 'wes'
+      // let name2 = name
+      // console.log(name, name2)
+      // name = 'wesley'
+      // console.log(name, name2)
 
-  <script>
-    // start with strings, numbers and booleans
+      // Let's say we have an array
+      const players = ['Wes', 'Sarah', 'Ryan', 'Poppy']
 
-    // Let's say we have an array
-    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+      // and we want to make a copy of it.
+      const team = players
+      console.log(players, team)
+      // You might think we can just do something like this:
+      team[3] = 'Lux'
+      // however what happens when we update that array?
+      console.log(team, players) // the updating of the array references back to the original array!
+      // now here is the problem!
 
-    // and we want to make a copy of it.
+      // oh no - we have edited the original array too!
 
-    // You might think we can just do something like this:
+      // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
-    // however what happens when we update that array?
+      // So, how do we fix this? We take a copy instead!
 
-    // now here is the problem!
+      // one way
+      const team2 = players.slice() // makes a new copy
+      // or create a new array and concat the old one in
+      const team3 = [].concat(players) // creates a new array and then puts the old array items in
+      // or use the new ES6 Spread
+      const team4 = [...players] // spreads each item into a new array
+      // now when we update it, the original one isn't changed
+      const team5 = Array.from(players) // creates a new array from players
+      // The same thing goes for objects, let's say we have a person object
 
-    // oh no - we have edited the original array too!
+      // with Objects
+      const person = {
+        name: 'Wes Bos',
+        age: 80,
+        likes: {
+          sports: ['soccer', 'bball'],
+          food: {
+            carbs: 'pasta',
+            dessert: 'ice cream',
+          },
+        },
+      }
 
-    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
-
-    // So, how do we fix this? We take a copy instead!
-
-    // one way
-
-    // or create a new array and concat the old one in
-
-    // or use the new ES6 Spread
-
-    // now when we update it, the original one isn't changed
-
-    // The same thing goes for objects, let's say we have a person object
-
-    // with Objects
-    const person = {
-      name: 'Wes Bos',
-      age: 80
-    };
-
-    // and think we make a copy:
-
-    // how do we take a copy instead?
-
-    // We will hopefully soon see the object ...spread
-
-    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
-
-  </script>
-
-</body>
+      // and think we make a copy:
+      const captain = person
+      //captain.number = 10 // this changes the original person object by going back to the reference
+      // how do we take a copy instead?
+      const cpt2 = Object.assign({}, person, { number: 12 })
+      console.log(person, cpt2)
+      // We will hopefully soon see the object ...spread -- NOW WE DO!
+      const cpt3 = { ...person, position: 'middle-back' }
+      console.log(cpt3, person)
+      // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+      console.clear()
+      console.log(person)
+      const steve = { ...person, name: 'steve' }
+      console.log(person, steve)
+      steve.likes.food.dessert = 'cake'
+      console.log(person, steve) // now both like cake mwahahaha
+    </script>
+  </body>
 </html>
