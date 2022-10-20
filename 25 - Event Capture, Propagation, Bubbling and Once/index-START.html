@@ -42,7 +42,18 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll("div")
 
+  function logText(e) {
+    console.log(this.classList.value)
+    e.stopPropagation() // stops on the bubble up
+  }
+
+  divs.forEach(div => div.addEventListener("click", logText, {
+    capture: false, // defaults to false, if true, the events fire on the way "down" instead of up
+    once: true //defaults to false, if true, the event unbinds itself after one click
+    
+  }))
 </script>
 </body>
 </html>
